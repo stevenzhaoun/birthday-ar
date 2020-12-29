@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>Gesture Interactions - A-Frame & AR.js</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="styles.css">
+
+  <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+  <!-- <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script> -->
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  <!-- <script src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-nft.js"></script> -->
+  <script
+    src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
+  <script
+    src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script>
+  <script src="gesture-detector.js"></script>
+  <script src="gesture-handler.js"></script>
+  <style>
+    .arjs-loader {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .arjs-loader div {
+      text-align: center;
+      font-size: 1.25em;
+      color: white;
+    }
+  </style>
+</head>
+
+
+
+<body>
+  <div class="arjs-loader">
+    <div>Loading, please wait...</div>
+  </div>
+  <a-scene arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" embedded
+    renderer="logarithmicDepthBuffer: true;" vr-mode-ui="enabled: false" gesture-detector id="scene">
+    <a-assets>
+      <!-- <a-asset-item id="bowser" src="https://cdn.glitch.com/06bd98b4-97ee-4c07-a546-fe39ca205034%2Fbowser.glb">
+      </a-asset-item> -->
+      <a-asset-item id="cake-obj"
+        src="https://cdn.rawgit.com/HackyRoot/A-Frame-Examples/c6a977a7/Happy_Birthday/assets/cake.obj"></a-asset-item>
+      <a-asset-item id="cake-mtl"
+        src="https://cdn.rawgit.com/HackyRoot/A-Frame-Examples/c6a977a7/Happy_Birthday/assets/cake.mtl"></a-asset-item>
+      <a-mixin id="text" text="font: roboto; align: center; width: 2; value: Happy Birthday Iris"></a-mixin>
+    </a-assets>
+
+    <!-- <a-marker preset="hiro" raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;"
+      id="markerA">
+      </a-entity>
+      <a-entity position="0 -7 -15" particle-system="preset: snow; particleCount: 10000"></a-entity>
+      <a-entity particle-system="preset: default; color: #f9e154; particleCount: 5000" position="0 0 -10"></a-entity>
+      <a-obj-model src="#cake-obj" mtl="#cake-mtl" class="clickable" gesture-handler></a-obj-model>
+      <a-text mixin="text" position="0 1 0" wrap-count="14" color='pink' class="clickable" gesture-handler></a-text>
+    </a-marker> -->
+
+    <a-nft type="nft" url="./marker" smooth="true" smoothCount="3" smoothTolerance="100" smoothThreshold="100"
+      raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" size="5">
+
+      <a-entity scale="100 100 100" rotation="280 0 0" position="70 -130 -300">
+        <a-entity rotation="270 0 0" particle-system="preset: snow; particleCount: 20000; size: 20;maxAge:100"
+          position="0 0 0">
+        </a-entity>
+        <a-entity rotation="270 0 0"
+          particle-system="preset: default; color: #f9e154; particleCount: 1000; size: 20;maxAge:100" position="0 0 0">
+        </a-entity>
+        <a-obj-model src="#cake-obj" mtl="#cake-mtl" class="clickable" gesture-handler></a-obj-model>
+        <a-text mixin="text" position="0 0.5 0" wrap-count="14" color='pink' class="clickable" gesture-handler></a-text>
+      </a-entity>
+    </a-nft>
+
+    <!-- <a-entity camera></a-entity> -->
+    <a-entity camera='near:0.1; far: 50000' gps-camera="minDistance: 50; positionMinAccuracy: 300; gpsMinDistance: 5;"
+      rotation-reader></a-entity>
+  </a-scene>
+</body>
+
+</html>
